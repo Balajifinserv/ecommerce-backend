@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ecommerce-backend
+    runtime: node
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 18.18.0
+      - key: MONGODB_URI
+        fromDatabase:
+          name: ecommerce-db
+          property: connectionString
+
+databases:
+  - name: ecommerce-db
+    plan: free
+    databaseName: ecommerce
+    ipAllowList: []
